@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>eitak$ ddcf</title>
+<style>
+@font-face{
+	font-family: KeepCalm;
+	src:url('http://eitak.se/f/KeepCalm-Medium.otf');
+	}
+body{font-family:sans-serif;margin:0px;}
+.kc{font-family:KeepCalm;}
+h2,h3{font-weight:normal}
+a{text-decoration:none;color:#aa0000}
+pre{background-color:#e0e0e0;border:solid 1px #006600;padding:3px;}
+h4{font-weight:normal;font-size:14pt;font-family:KeepCalm;display:inline}
+</style>
+</head>
+<body>
+<div style='background-color:#aa0000;color:white;padding-bottom:5px;box-shadow:0px 3px 8px black;border-bottom:solid 1px #e0e0e0;margin-bottom:10px;'>
+<span class='kc' style='font-size:50px;display:block;font-size:50px;text-align:center;margin-top:-10px'>^</span>
+<span class='kc' style='display:block;font-size:x-large;text-align:center;letter-spacing:1px;'>KEEP CALM <span style='font-size:small;vertical-align:0.25em;display:block;' class='kc'>AND</span> DON'T BLINK</span>
+<span class='kc' style='display:block;font-size:medium;text-align:center;letter-spacing:2px;color:white;'>&middot;&middot;&middot;\\ DDCF DOCUMENTATION //&middot;&middot;&middot;</span>
+</div>
+<div style='margin:8px'>
+<h2 class='kc'>DEFAULT IP URL</h2>
+I advise against changing this unless you know what you are doing. It requires you to search into the code to find certain things and change them. If you still wish to continue, read on. Otherwise, leave it as None.</br></br>
+<i>We use Python's <a href='http://docs.python.org/library/httplib.html'>httplib</a> for handling the IP request.</i></br></br>
+<h4>Changing the option</h4></br>
+Do not include any `/' or the `http://' portions of the URL. Domain only.
+<pre>defaultIPURL = "<b>example.com</b>"</pre></br>
+<h4>Changing the request</h4></br>
+Finding the change places is relatively easy. Search for `&lt;/script>/n'. The change points are generally around this. Making the change isn't as easy.</br></br>
+<b>Changing the location</b></br>
+The URL of the script with the IP. This is the same syntax as any HTTP request, minus the protocol identifier.
+<pre>ipck.request("GET","/")</pre>
+The second parameter is generally good enough to change.</br></br>
+<b>Changing to HTTPS</b></br>
+Simply change the lines...
+<pre>ipck = httplib.HTTPConnection(ipurl)</pre>
+to...
+<pre>ipck = httplib.HTTPSConnection(ipurl)</pre>
+
+<h4>Parsing the output</h4></br>
+<b>Returning plain text</b></br>
+If you're just getting plain text with no frills, you can get away with using
+<pre>ip = ip2</pre>
+</br>
+<b>Returning valid HTML</b></br>
+If you're returning valid HTML (meaning within a body tag), you can use this...
+<pre>ip = ip2.split("&lt;body>")[1].split("&lt;/body>")[0]</pre>
+You might have to adjust this for newlines, as this is fed directly into the API call.</br></br>
+If you have any questions on changing this, you may email me at <a href='mailto:katie@eitak.se'>katie@eitak.se</a>. I'm happy to help with any of this.
+</div></body></html>
