@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>eitak$ ddcf</title>
+<style>
+@font-face{
+	font-family: KeepCalm;
+	src:url('http://eitak.se/f/KeepCalm-Medium.otf');
+	}
+body{font-family:sans-serif;margin:0px;}
+.kc{font-family:KeepCalm;}
+h2,h3{font-weight:normal}
+a{text-decoration:none;color:#aa0000}
+pre{background-color:#e0e0e0;border:solid 1px #006600;padding:3px;}
+h4{font-weight:normal;font-size:14pt;font-family:KeepCalm;display:inline}
+</style>
+</head>
+<body>
+<div style='background-color:#aa0000;color:white;padding-bottom:5px;box-shadow:0px 3px 8px black;border-bottom:solid 1px #e0e0e0;margin-bottom:10px;'>
+<span class='kc' style='font-size:50px;display:block;font-size:50px;text-align:center;margin-top:-10px'>^</span>
+<span class='kc' style='display:block;font-size:x-large;text-align:center;letter-spacing:1px;'>KEEP CALM <span style='font-size:small;vertical-align:0.25em;display:block;' class='kc'>AND</span> DON'T BLINK</span>
+<span class='kc' style='display:block;font-size:medium;text-align:center;letter-spacing:2px;color:white;'>&middot;&middot;&middot;\\ DDCF DOCUMENTATION //&middot;&middot;&middot;</span>
+</div>
+<div style='margin:8px'>
+<h2 class='kc'>DOCUMENTATION</h2>
+
+<h4>Format</h4></br>
+Just so you know what to expect here, I'll give a basic and straightforward explaination and then a technical explaination. Generally speaking, the 
+first one should tide you over.</br></br>
+
+<a id='setup'></a>
+<h3 class='kc'>SETUP</h3>
+<i>Setup is done around line 16 on the script. Be sure to set it before you run the program.</i></br>
+
+<b>1: <i>Your E-mail Address</i></b>
+<pre>emailAddress = <i>YOUR CLOUDFLARE EMAIL HERE</i></pre>
+<b>2: <i>Your API Key</i></b>
+<pre>APIkey = <i>YOUR CLOUDFLARE API KEY HERE</i></pre>
+</br>
+These are the only two you need to worry about, the only other option you should change is...</br>
+<b><i>Default Hostname</i></b>
+<pre>defaultHostname = <i>YOUR DEFAULT DOMAIN</i></pre>
+</br>
+If you wish to change the last option, <a href='http://eitak.se/ddcf/ipurl.html'>read this</a>.
+
+<a id='commands'></a>
+<h3 class='kc'>COMMANDS</h3>
+<a id='command-update'></a>
+<h4>Update</h4></br></br>
+<b>Invokation:</b>
+<pre>$ ddcf update</pre>
+
+<b>Full syntax:</b>
+<pre>$ ddcf u|update [<i>hostname</i>]</pre>
+
+This command will update the hostname passed as an argument or the default hostname to your current IP. This will only work on A records, however will return "Success." if you try to change a CNAME. Contrarily to that, it will not, however, update the record.</br></br>
+
+This command will get your IP from a web script (specifically and by default `http://canhazip.com') and makes the CloudFlare API call to update the DNS entry via HTTPS.</br></br>
+
+<a id='command-force'></a>
+<h4>Force</h4></br></br>
+<b>Invokation:</b>
+<pre>$ ddcf force 127.0.0.1</pre>
+
+<b>Full syntax:</b>
+<pre>$ ddcf f|force <i>value</i> [<i>hostname</i>]</pre>
+
+This command will update the hostname passed as an argument or the default hostname to the value argument.</br></br>
+
+This command does the same thing as `<i>update</i>', except it does not check for your current IP. This might work to change CNAME records, however it has not been tested to do so.</br></br>
+
+<a id='command-stats'></a>
+<h4>Stats</h4></br></br>
+<b>Invokation:</b>
+<pre>$ ddcf stats</b></pre>
+
+<b>Full syntax:</b>
+<pre>$ ddcf s|stats [<i>interval</i>]</pre>
+
+This will show you some basic information about your account's statistics. Everything interesting that it can show is there.</br></br>
+
+This command takes all the interesting information from the stats API call, does some math and CLI formatting, and displays it all pretty. Due to a bug in CloudFlare's Client API, this does not currently support showing per-zone (hostname) stats. As soon as the API is updated, I will add this capability.</br></br>
+
+<a id='command-add'></a>
+<h4>Add</h4></br></br>
+<b>Invokation:</b>
+<pre>$ ddcf add example.com sub A 127.0.0.1</pre>
+
+<b>Full syntax:</b>
+<pre>$ ddcf a|add <i>domain</i>|X <i>name</i> A|CNAME <i>value</i>|X [<i>on</i>|<i>off</i>]</pre>
+
+This command will add <i>name</i> to <i>domain</i> as either an A or CNAME record with value of <i>value</i>. If value is X, it will get your current IP and use it. This only will work with A records. If domain is X, it will use the default hostname. Note, this will fail if your default hostname is not the root domain name.
+
+Value X does the same operation as `update', however adds a record rather than updating it.</br></br>
+
+If the last argument is passed, on means a happy orange cloud<sup>[sic]</sup> and off means a sad grey cloud.</br></br>
+
+<a id='command-remove'></a>
+<h4>Remove</h4></br></br>
+<b>Invokation:</b>
+<pre>$ ddcf remove example.com sub.example.com</pre>
+
+<b>Full syntax:</b>
+<pre>$ ddcf r|rm|remove <i>domain</i>|X <i>record</i></pre>
+
+This command will remove the record argument. This will remove all records for that record (including MX, TXT, SPF, etc). If hostname is set to `X', it will use the default hostname.</br>
+Record must be set to the full DNS entry.</br>
+<i>Example:</i> `sub.example.com'</br>
+<i>NOT:</i> `sub'</br></br>
+
+This command will remove the record argument via API call.</br></br>
+</div>
+</body></html>
