@@ -10,7 +10,7 @@ CloudFlare API key (Freely available, see `Account' tab on http://www.cloudflare
 SETUP--
 Open up the script in Notepad, Gedit, or whatever text editor you'd like, and edit the following lines...
     emailAddress		= None		# Set this to your CloudFlare Email.
-    APIkey				= None 		# Set this to your API key.
+    APIkey			= None 	# Set this to your API key.
 And also, if you'd like, edit this line too.
     defaultHostname		= None 		# Set this to your default hostname
 The last line.. DO NOT EDIT IT. It's not made to be edited, but still is there to allow neutrality.
