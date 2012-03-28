@@ -1,0 +1,15 @@
+CHANGELOG
+
+r3
+---
+ - Tweaked stats a little more.
+ - Added s to help (shorthand stats, was executable, but not in help.)
+
+r2
+---
+ - Tweaked math operations in stats to better show percentages.
+ - Edited help messages (force, specifically)
+ 
+r1
+---
+ - Initial release
