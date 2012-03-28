@@ -3,11 +3,13 @@ from __future__ import division
 # Dynamic DNS Client for CloudFlare
 # Released under the MIT license.
 # By: Katie G. <katie@eitak.se>
+# r4
 
 # This program requires Python 2, and is tested and built on 2.7.2 (It should work with >2.6)
 # It will NOT work on Python 3.
 # If your path to the Python executable is different than what I have set it to,
 #  it's a good idea to change it to what it is.
+
 # SETUP
 #--------------------
 # These HAVE to be set.
@@ -32,6 +34,7 @@ defaultIPURL		= None		# This doesn't need to be changed. (Seriously.) It require
 # ddcf u & ddcf update 		<-- Updates a record or records.
 # ddcf a & ddcf add		<-- Adds a record (See doc.)
 # ddcf r & ddcf remove		<-- Removes a record
+# ddcf ip               <-- Shows current IP address
 # ddcf help 			<-- Displays help message
 
 # PROGRAM
@@ -69,6 +72,8 @@ def check_command(a):
 		return True
 	elif a == "s" or a == "stats":
 		return True
+	elif a == "ip" or a == "getip":
+		return True
 	else:
 		return False
 
@@ -94,6 +99,8 @@ def display_help():
 		print("    a,  add             Adds an A or CNAME record")
 		print("    r,  rm, remove      Removes a record")
 		print("    s,  stats           Shows the stats for the domain")
+		print("    ip, getip           Retrieves and displays your crrent IP.")
+		print("    st, support         Support tools (see `ddcf help st')")
 		print("    h,  help            Displays this message")
 		print("")
 		print("You can read the online documentation at")
@@ -189,6 +196,16 @@ def display_help():
 				print("      100: 24 hours (Between 24 hours and 0 minutes ago)")
 				print("      110: 12 hours (Between 12 hours and 0 minutes ago)")
 				print("      120: 6 hours (Between 6 hours and 0 minutes ago)")
+				sys.exit(0)
+			elif command == "ip" or command == "getip":
+				print("ddcf getip Help")
+				print("")
+				print("Command ip & getip")
+				print("    Retrieves your IP and displays it onscreen.")
+				print("")
+				print("Syntax")
+				print("    ddcf getip")
+				sys.exit(0)
 #Main variables
 fbIPURL = "canhazip.com" # Fallback IP check URL
 CFAPI = "/api_json.html" #Main CloudFlare API URL
@@ -206,6 +223,21 @@ if defaultIPURL is None:
 	ipurl = fbIPURL
 else:
 	ipurl = defaultIPURL
+
+def do_getip():
+	#GetIP
+	print("Starting GetIP Process...")
+	print("Getting your IP...")
+	ipck.request("GET","/")
+	ip1 = ipck.getresponse()
+	if ip1.status != 200:
+		print("Errno 40: IP URL invalid.")
+		print("Returned with response code:"+ str(ip1.status))
+		sys.exit(40)
+	ip2 = ip1.read()
+	ip = ip2.split("</script>\n")[1]
+	print("Your current IP: "+ip)
+	exit(0)
 
 def do_stats():
 	#Stats
@@ -552,6 +584,9 @@ else:
 		if cmd == "u" or cmd == "update":
 			#Update
 			do_update()
+		elif cmd == "ip" or cmd == "getip":
+			#GetIP
+			go_getip()
 		elif cmd == "f" or cmd == "force":
 			#Force
 			do_force()
