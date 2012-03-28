@@ -1,2 +1,26 @@
-See documentation at:
-	http://eitak.se/ddcf/doc.html
+DOWNLOADING--
+ddcf    <- is for Linux, BSD, and Unix derivatives.
+ddcf.py <- is for Windows.
+
+REQUIREMENTS--
+CloudFlare account (Free will do, DNS doesn't change for Pro accounts.)
+Internet connection
+CloudFlare API key (Freely available, see `Account' tab on http://www.cloudflare.com/)
+
+SETUP--
+Open up the script in Notepad, Gedit, or whatever text editor you'd like, and edit the following lines...
+    emailAddress		= None		# Set this to your CloudFlare Email.
+    APIkey				= None 		# Set this to your API key.
+And also, if you'd like, edit this line too.
+    defaultHostname		= None 		# Set this to your default hostname
+The last line.. DO NOT EDIT IT. It's not made to be edited, but still is there to allow neutrality.
+See documentation for editing the last option.
+
+USING--
+The most basic command is `update' or `u'
+    $ ddcf u
+This will get your IP from an outside source (specifically http://canhazip.com/), and updates the default hostname (set in the program, see SETUP) with this IP.
+
+See full documentation at http://eitak.se/ddcf/doc.html
+Or invoke:
+    $ ddcf help
