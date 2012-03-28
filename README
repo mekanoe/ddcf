@@ -3,6 +3,7 @@ ddcf    <- is for Linux, BSD, and Unix derivatives.
 ddcf.py <- is for Windows.
 
 REQUIREMENTS--
+Python 2 with SSL support.
 CloudFlare account (Free will do, DNS doesn't change for Pro accounts.)
 Internet connection
 CloudFlare API key (Freely available, see `Account' tab on http://www.cloudflare.com/)
