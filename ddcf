@@ -230,6 +230,7 @@ def do_getip():
 	print("Starting GetIP Process...")
 	print("Getting your IP...")
 	ipck.request("GET","/")
+	ipck = httplib.HTTPConnection(ipurl)
 	ip1 = ipck.getresponse()
 	if ip1.status != 200:
 		print("Errno 40: IP URL invalid.")
