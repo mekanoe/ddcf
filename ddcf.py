@@ -586,7 +586,7 @@ else:
 			do_update()
 		elif cmd == "ip" or cmd == "getip":
 			#GetIP
-			go_getip()
+			do_getip()
 		elif cmd == "f" or cmd == "force":
 			#Force
 			do_force()
