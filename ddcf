@@ -14,10 +14,10 @@ from __future__ import division
 # SETUP
 #--------------------
 # These HAVE to be set.
-emailAddress		= None		# Set this to your CloudFlare Email.
-APIkey				= None 	# Set this to your API key.
+emailAddress		= "kythonapi@gmail.com"		# Set this to your CloudFlare Email.
+APIkey				= "0afbf9cc152ffd2972e14d8e30721b190fe1ac2aa7209" 	# Set this to your API key.
 # These do not have to be set.
-defaultHostname		= None 		# Set this to your default hostname
+defaultHostname		= "codersnotebook.com" 		# Set this to your default hostname
 defaultIPURL		= None		# This doesn't need to be changed. (Seriously.) It requires you to recode this script.
 
 # USING
@@ -229,8 +229,8 @@ def do_getip():
 	#GetIP
 	print("Starting GetIP Process...")
 	print("Getting your IP...")
-	ipck.request("GET","/")
 	ipck = httplib.HTTPConnection(ipurl)
+	ipck.request("GET","/")
 	ip1 = ipck.getresponse()
 	if ip1.status != 200:
 		print("Errno 40: IP URL invalid.")
