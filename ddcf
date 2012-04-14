@@ -23,7 +23,7 @@ defaultIPURL		= None		# This doesn't need to be changed. (Seriously.) It require
 # USING
 #--------------------
 # See documentation at
-#  http://eitak.se/ddcf/doc.html
+#  http://git.eitak.se/ddcf/doc.html
 #
 # REMEMBER TO SETUP THE PROGRAM ABOVE!
 #
