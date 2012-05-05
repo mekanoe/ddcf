@@ -14,10 +14,10 @@ from __future__ import division
 # SETUP
 #--------------------
 # These HAVE to be set.
-emailAddress		= "kythonapi@gmail.com"		# Set this to your CloudFlare Email.
-APIkey				= "0afbf9cc152ffd2972e14d8e30721b190fe1ac2aa7209" 	# Set this to your API key.
+emailAddress		= ""		# Set this to your CloudFlare Email.
+APIkey			= "" 	# Set this to your API key.
 # These do not have to be set.
-defaultHostname		= "codersnotebook.com" 		# Set this to your default hostname
+defaultHostname		= "" 		# Set this to your default hostname
 defaultIPURL		= None		# This doesn't need to be changed. (Seriously.) It requires you to recode this script.
 
 # USING
