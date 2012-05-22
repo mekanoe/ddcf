@@ -1,5 +1,9 @@
 CHANGELOG
 
+r5
+---
+ - Fixed script to run on new canhazip source code.
+
 r4
 ---
  - Added a "getip" function.
