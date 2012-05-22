@@ -4,7 +4,7 @@ from __future__ import division
 # Dynamic DNS Client for CloudFlare
 # Released under the MIT license.
 # By: Katie G. <katie@eitak.se>
-# r4
+# r5 (2012-22-05)
 
 # This program requires Python 2, and is tested and built on 2.7.2 (It should work with >2.6)
 # It will NOT work on Python 3.
@@ -237,7 +237,7 @@ def do_getip():
 		print("Returned with response code:"+ str(ip1.status))
 		sys.exit(40)
 	ip2 = ip1.read()
-	ip = ip2.split("</script>\n")[1]
+	ip = ip2.split("</script>\n")[3].split("\n")[0]
 	print("Your current IP: "+ip)
 	exit(0)
 
@@ -462,7 +462,7 @@ def do_add():
 			print("Returned with response code:"+ str(ip1.status))
 			sys.exit(15)
 		ip2 = ip1.read()
-		cont = ip2.split("</script>\n")[1]
+		cont = ip2.split("</script>\n")[2]
 		print("Got your IP.")
 	elif fip is False and rect == "CNAME":
 		print("Errno 18: Cannot use retrivable IP for CNAME record.")
@@ -544,7 +544,7 @@ def do_update():
 		print("Returned with response code:"+ str(ip1.status))
 		sys.exit(6)
 	ip2 = ip1.read()
-	ip = ip2.split("</script>\n")[1]
+	ip = ip2.split("</script>\n")[3].split("\n")[0]
 	print("Got your IP, starting API call.")
 	
 	#Arg handler
