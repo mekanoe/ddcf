@@ -1,9 +1,9 @@
 from __future__ import division
-# DDCF (for Windows)
+# DDCF (Windows)
 # Dynamic DNS Client for CloudFlare
 # Released under the MIT license.
 # By: Katie G. <katie@eitak.se>
-# r4
+# r5 (2012-22-05)
 
 # This program requires Python 2, and is tested and built on 2.7.2 (It should work with >2.6)
 # It will NOT work on Python 3.
@@ -13,16 +13,16 @@ from __future__ import division
 # SETUP
 #--------------------
 # These HAVE to be set.
-emailAddress		= None		# Set this to your CloudFlare Email.
-APIkey				= None 	# Set this to your API key.
+emailAddress		= ""		# Set this to your CloudFlare Email.
+APIkey			= "" 	# Set this to your API key.
 # These do not have to be set.
-defaultHostname		= None 		# Set this to your default hostname
+defaultHostname		= "" 		# Set this to your default hostname
 defaultIPURL		= None		# This doesn't need to be changed. (Seriously.) It requires you to recode this script.
 
 # USING
 #--------------------
 # See documentation at
-#  http://eitak.se/ddcf/doc.html
+#  http://git.eitak.se/ddcf/doc.html
 #
 # REMEMBER TO SETUP THE PROGRAM ABOVE!
 #
@@ -228,15 +228,15 @@ def do_getip():
 	#GetIP
 	print("Starting GetIP Process...")
 	print("Getting your IP...")
-	ipck.request("GET","/")
 	ipck = httplib.HTTPConnection(ipurl)
+	ipck.request("GET","/")
 	ip1 = ipck.getresponse()
 	if ip1.status != 200:
 		print("Errno 40: IP URL invalid.")
 		print("Returned with response code:"+ str(ip1.status))
 		sys.exit(40)
 	ip2 = ip1.read()
-	ip = ip2.split("</script>\n")[1]
+	ip = ip2.split("</script>\n")[3].split("\n")[0]
 	print("Your current IP: "+ip)
 	exit(0)
 
@@ -294,7 +294,7 @@ def do_stats():
 	print("Regular | "+str(tb1['regular'])+"		"+str(tb2['regular']))
 	print("Crawler | "+str(tb1['crawler'])+"		"+str(tb2['crawler']))
 	print("Threats | "+str(tb1['threat'])+"		"+str(tb2['threat']))
-	
+
 	#Escapes db0 error.
 	if tb2['regular'] == 0:
 		regu = 1;
@@ -320,7 +320,7 @@ def do_stats():
 		crav = 1;
 	else:
 		crav = tb1['crawler']
-	
+
 	# Calculate the ratios
 	regr = str((regu/regv)*100).split(".")[0]
 	crar = str((crau/crav)*100).split(".")[0]
@@ -364,7 +364,7 @@ def do_remove():
 		name = sys.argv[3]
 	except IndexError:
 		print("Errno 19: Missing arguments. See `ddcf help remove' for help.")
-	
+
 	if zone == "X":
 		zone = defaultHostname
 		print("Set zone to default hostname. Continuing with unknown results.")
@@ -381,7 +381,7 @@ def do_remove():
 	print("")
 	print("Another note: It will remove ALL DNS records for what you requested. This includes MX and TXT.")
 	print("--------------------")
-	
+
 	# User intervention
 	yn = raw_input("Are you sure [y/N]? ")
 	if yn == "N" or yn == "n":
@@ -391,7 +391,7 @@ def do_remove():
 	if yn2 == "N" or yn2 == "n":
 		print("Aborting..")
 		sys.exit(0)
-	
+
 	# API handler
 	print("Starting API call..")
 	query = "?a=rec_del&tkn="+APIkey+"&u="+emailAddress+"&zone="+zone+"&name="+name
@@ -415,14 +415,14 @@ def do_remove():
 def do_add():
 	print("Starting Add Process...")
 	#Add
-	
+
 	#Arg check
 	try:
 		zone = sys.argv[2]
 	except IndexError:
 		print("Errno 12: No arguments set. See `ddcf help add' for help.")
 		sys.exit(12)
-	
+
 	try:
 		name = sys.argv[3] # Record name
 		rect = sys.argv[4] # Record type
@@ -435,21 +435,21 @@ def do_add():
 	except IndexError:
 		print("Defaulting CloudFlare mode to `on'.")
 		state = "1"
-	
+
 	# If cont is X, we can get the current IP.
 	if cont == "X":
 		fip = False
 	else:
 		fip = True
-	
+
 	# If zone is X, we can use default hostname. This may not work.
 	if zone == "X":
 		zone = defaultHostname
 		print("Set active zone to default hostname. Continuing with unknown results.")
-	
+
 	# CF object
 	apio = httplib.HTTPSConnection("www.cloudflare.com")
-	
+
 	#IP Handler
 	if fip is False and rect == "A":
 		ipck = httplib.HTTPConnection(ipurl)
@@ -461,13 +461,13 @@ def do_add():
 			print("Returned with response code:"+ str(ip1.status))
 			sys.exit(15)
 		ip2 = ip1.read()
-		cont = ip2.split("</script>\n")[1]
+		cont = ip2.split("</script>\n")[2]
 		print("Got your IP.")
 	elif fip is False and rect == "CNAME":
 		print("Errno 18: Cannot use retrivable IP for CNAME record.")
 		sys.exit(18)
 	print("Starting API call.")
-	
+
 	#API handler
 	query = "?a=rec_set&tkn="+APIkey+"&u="+emailAddress+"&zone="+zone+"&type="+rect+"&content="+cont+"&name="+name+"&service_mode="+state
 	apio.request("GET",CFAPI+query)
@@ -492,21 +492,21 @@ def do_force():
 	# Force
 	# CF object
 	apio = httplib.HTTPSConnection("www.cloudflare.com")
-	
+
 	#Get argv[2]
 	try:
 		ip = sys.argv[2]
 	except IndexError:
 		print("Errno 9: IP argument is unset. This argument MUST be set to use force. See `ddcf help force' for help.")
 		sys.exit(9)
-	
+
 	#host handler
 	try:
 		hN = sys.argv[3]
 	except IndexError:
 		hN = defaultHostname
 	print("Starting API call")
-	
+
 	#API handler
 	query = "?a=DIUP&tkn="+APIkey+"&u="+emailAddress+"&ip="+ip+"&hosts="+hN
 	apio.request("GET",CFAPI+query)
@@ -533,7 +533,7 @@ def do_update():
 	ipck = httplib.HTTPConnection(ipurl)
 	# CF object
 	apio = httplib.HTTPSConnection("www.cloudflare.com")
-	
+
 	#IP Handler
 	print("Getting your IP...")
 	ipck.request("GET","/")
@@ -543,15 +543,15 @@ def do_update():
 		print("Returned with response code:"+ str(ip1.status))
 		sys.exit(6)
 	ip2 = ip1.read()
-	ip = ip2.split("</script>\n")[1]
+	ip = ip2.split("</script>\n")[3].split("\n")[0]
 	print("Got your IP, starting API call.")
-	
+
 	#Arg handler
 	try:
 		hN = sys.argv[2]
 	except IndexError:
 		hN = defaultHostname
-	
+
 	#API handler
 	query = "?a=DIUP&tkn="+APIkey+"&u="+emailAddress+"&ip="+ip+"&hosts="+hN
 	apio.request("GET",CFAPI+query)
@@ -570,7 +570,7 @@ def do_update():
 	elif respo['result'] == "success":
 		print("Success.")
 		sys.exit(0)
-		
+
 if arg1Set is False:
 	# If no command is set, display help.
 	display_help()
