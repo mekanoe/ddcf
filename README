@@ -22,6 +22,6 @@ The most basic command is `update' or `u'
     $ ddcf u
 This will get your IP from an outside source (specifically http://canhazip.com/), and updates the default hostname (set in the program, see SETUP) with this IP.
 
-See full documentation at http://eitak.se/ddcf/doc.html
+See full documentation at http://git.eitak.se/ddcf/doc.html
 Or invoke:
     $ ddcf help
