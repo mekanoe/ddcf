@@ -49,7 +49,7 @@ import json
 
 #Version check
 platformVersion = platform.python_version_tuple()
-if platformVersion[0] != "2":
+if platformVersion[0] != 2:
 	print("Errno 1: Python version not supported. Please use Python v2.")
 	sys.exit(1)
 
