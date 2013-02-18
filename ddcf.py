@@ -48,7 +48,7 @@ import json
 
 #Version check
 platformVersion = platform.python_version_tuple()
-if platformVersion[0] != "2":
+if platformVersion[0] != 2:
 	print("Errno 1: Python version not supported. Please use Python v2.")
 	sys.exit(1)
 
@@ -236,7 +236,7 @@ def do_getip():
 		print("Returned with response code:"+ str(ip1.status))
 		sys.exit(40)
 	ip2 = ip1.read()
-	ip = ip2.split("</script>\n")[3].split("\n")[0]
+	ip = ip2.split("\n")[0]
 	print("Your current IP: "+ip)
 	exit(0)
 
@@ -543,7 +543,7 @@ def do_update():
 		print("Returned with response code:"+ str(ip1.status))
 		sys.exit(6)
 	ip2 = ip1.read()
-	ip = ip2.split("</script>\n")[3].split("\n")[0]
+	ip = ip2.split("\n")[0]
 	print("Got your IP, starting API call.")
 
 	#Arg handler
