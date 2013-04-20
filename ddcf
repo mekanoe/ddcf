@@ -4,7 +4,7 @@ from __future__ import division
 # Dynamic DNS Client for CloudFlare
 # Released under the MIT license.
 # By: Katie G. <katie@eitak.se>
-# r5 (2012-22-05)
+# r7 (2013-20-04)
 
 # This program requires Python 2, and is tested and built on 2.7.2 (It should work with >2.6)
 # It will NOT work on Python 3.
@@ -48,8 +48,8 @@ import platform
 import json
 
 #Version check
-platformVersion = platform.python_version_tuple()
-if platformVersion[0] != 2:
+platformVersion = platform.python_version_tuple()[0]
+if platformVersion != 2 and platformVersion != "2":
 	print("Errno 1: Python version not supported. Please use Python v2.")
 	sys.exit(1)
 
