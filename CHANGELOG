@@ -1,5 +1,14 @@
 CHANGELOG
 
+r7
+---
+ - Unbreak Python 2.7 compatibility. [dgw]
+
+r6
+---
+ - Fixed script to run on new canhazip source code (again). [dgw]
+ - Fix Python 2.6 compatibility. [dgw]
+
 r5
 ---
  - Fixed script to run on new canhazip source code.
