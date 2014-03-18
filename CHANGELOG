@@ -1,5 +1,10 @@
 CHANGELOG
 
+r8
+---
+ - Use icanhazip.com instead. canhazip.com started using CloudFlare and that
+   seemed to break this script by asking for a CAPTCHA response.
+
 r7
 ---
  - Unbreak Python 2.7 compatibility. [dgw]

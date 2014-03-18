@@ -208,7 +208,7 @@ def display_help():
 				print("    ddcf getip")
 				sys.exit(0)
 #Main variables
-fbIPURL = "canhazip.com" # Fallback IP check URL
+fbIPURL = "icanhazip.com" # Fallback IP check URL
 CFAPI = "/api_json.html" #Main CloudFlare API URL
 
 #Check Setup
